@@ -1,0 +1,83 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.filters span{
+  border: 1px dashed #444;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  display: inline-block;
+  text-align: center;
+  padding-top: 20px;
+  font-size: 12px;
+  box-sizing: border-box;
+  margin: 0 10px;
+  box-shadow: 1px 2px 4px #000;
+  cursor: pointer;
+}
+
+.filters span:hover{
+  box-shadow: 1px 2px 3px #999;
+}
+
+.searchInput{
+  width: 25vw;
+  min-width: 400px;
+  height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 0 10px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: 1px 2px 4px #000;
+}
+
+.searchBtn{
+  height: 52px;
+  border: 2px solid #444;
+  background-color: #444;
+  border-radius: 15px;
+  color: #fff;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  box-shadow: 1px 2px 4px #000;
+  cursor: pointer;
+}
+
+.searchBtn:hover{
+  box-shadow: 1px 2px 2px #000;
+}
+
+.searchBtn:active{
+  box-shadow: none;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
