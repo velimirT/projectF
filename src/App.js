@@ -11,7 +11,7 @@ class App extends Component {
   }
 
   handleSearchChange = (e) => {
-    this.setState({Search:e.target.value});
+    this.setState({search:e.target.value});
   }
 
   handleSearchClick = () => {
