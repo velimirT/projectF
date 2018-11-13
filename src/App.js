@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Search from './components/Search/Search';
 // import Button from './components/button/containerButton';
+import PayButton from './components/PayButton/PayButton';
 
 class App extends Component {
   
@@ -23,6 +24,7 @@ class App extends Component {
     return (
       <div className="App">
         <Search search = {this.state.search} filters = {this.state.filters} handleSearchChange = {this.handleSearchChange} handleSearchClick = {this.handleSearchClick} />
+        <PayButton/>
       </div>
     );
   }
