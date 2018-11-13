@@ -1,23 +1,18 @@
 const defaultState = {
-  number: 1
+  filters: ['materials', 'technique', 'size','color'],
+  products: []
 }
 
 export default (state = { ...defaultState }, action) => {
   switch (action.type) {
 
-    case 'ADD_ONE':
+    case 'ADD_PRODUCTS':
       return {
         ...state,
-        number: state.number + 1
-      }
-
-    case 'SUBTRACT_ONE':
-      return {
-        ...state,
-        number: state.number - 1
-      }
+        products: [...action.products]
+      };
 
     default:
       return state;
-  }
+  };
 }

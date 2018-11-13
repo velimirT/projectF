@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
 import Search from './components/Search/Search';
-// import Button from './components/button/containerButton';
+import ProductsList from './components/ProductsList/containerProductsList';
 import PayButton from './components/PayButton/PayButton';
 
 class App extends Component {
   
   state = {
-    search:"Search default text",
-    filters: ['materials', 'technique', 'size','color']
+    search:"Search default text"
+  }
+
+  componentDidMount(){
+    const { getRandomProducts } = this.props;
+    getRandomProducts();
   }
 
   handleSearchChange = (e) => {
@@ -17,13 +21,15 @@ class App extends Component {
 
   handleSearchClick = () => {
     console.log(this.state.search);
-    // alert(this.state.search);
   }
 
-  render() {
+  render() {  
+    const { filters } = this.props;
+
     return (
       <div className="App">
-        <Search search = {this.state.search} filters = {this.state.filters} handleSearchChange = {this.handleSearchChange} handleSearchClick = {this.handleSearchClick} />
+        <Search search = {this.state.search} filters = {filters} handleSearchChange = {this.handleSearchChange} handleSearchClick = {this.handleSearchClick} />
+        <ProductsList />
         <PayButton/>
       </div>
     );
