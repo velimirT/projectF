@@ -7,6 +7,10 @@ export const addProducts = (products) => {
   });
 };
 
+export const toggleIsOverShown = () => {
+  return ({ type: 'TOGGLE_IS_OVER_SHOWN' });
+};
+
 export const getRandomProducts = () => {
   return (dispatch) => {
     axios.get('/get-random-products')

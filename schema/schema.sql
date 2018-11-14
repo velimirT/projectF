@@ -14,8 +14,10 @@ CREATE TABLE products
 		id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(255) NOT NULL DEFAULT 'product name',
         price DECIMAL(8, 2) NOT NULL DEFAULT 0.00,
-        product_desc VARCHAR(255) NOT NULL DEFAULT 'description',
+        -- product_desc VARCHAR(255) NOT NULL DEFAULT 'description',
+        img VARCHAR(255) NOT NULL,
 		created_at TIMESTAMP DEFAULT NOW() NOT NULL,
+        quentety ?
         author_id INT,
         FOREIGN KEY(author_id) REFERENCES authors(id) ON DELETE CASCADE
     );

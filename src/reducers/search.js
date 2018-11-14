@@ -1,6 +1,7 @@
 const defaultState = {
   filters: ['materials', 'technique', 'size','color'],
-  products: []
+  products: [],
+  isOverShown: false
 }
 
 export default (state = { ...defaultState }, action) => {
@@ -11,6 +12,12 @@ export default (state = { ...defaultState }, action) => {
         ...state,
         products: [...action.products]
       };
+
+    case 'TOGGLE_IS_OVER_SHOWN':
+      return {
+        ...state,
+        isOverShown: !state.isOverShown
+      }
 
     default:
       return state;
