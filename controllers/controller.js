@@ -10,6 +10,16 @@ module.exports = {
         resolve(res);
       })
     })
+  },
+
+  getProduct: (id, category) => {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT * FROM ?? WHERE id = ?';
+      connection.query(query, [category, id], (err, res) => {
+        if(err) reject(err);
+        resolve(res);
+      })
+    });
   }
 
 }

@@ -28,7 +28,7 @@ class App extends Component {
     const { filters } = this.props;
 
     return (
-      <div className="App">
+      <div>
         <Search search={this.state.search} filters={filters} handleSearchChange={this.handleSearchChange} handleSearchClick={this.handleSearchClick} />
         <ProductsList />
         <ProductOverlay />
@@ -39,4 +39,3 @@ class App extends Component {
 }
 
 export default App;
-
