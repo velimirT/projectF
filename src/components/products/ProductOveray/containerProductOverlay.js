@@ -4,14 +4,15 @@ import { toggleIsOverShown } from '../../../actions/actions';
 
 const mapStateToProps = state => {
   return({
-    isOverShown: state.isOverShown
-  })
+    isOverShown: state.isOverShown,
+    detailedProduct: state.detailedProduct
+  });
 };
 
 const mapDispatchToProps = (dispatch) => {
   return({
     toggleIsOverShown: () => dispatch(toggleIsOverShown())
-  })
+  });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductOverlay);

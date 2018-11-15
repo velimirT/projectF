@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import ProductItem from './ProductItem';
-import { toggleIsOverShown } from '../../../actions/actions';
+import { getProduct } from '../../../actions/actions';
 
 
 const mapDispatchToProps = (dispatch) => {
   return({
-    toggleIsOverShown: () => dispatch(toggleIsOverShown())
+    getProduct: (id, category) => dispatch(getProduct(id, category))
   })
 };
 
