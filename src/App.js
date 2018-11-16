@@ -17,9 +17,11 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <Search />
-        <ProductsList />
-        <ProductOverlay />
+        <main>
+          <Search />
+          <ProductsList />
+          <ProductOverlay />
+        </main>
       </div>
     );
   };
