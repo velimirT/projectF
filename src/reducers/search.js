@@ -53,6 +53,18 @@ export default (state = { ...defaultState }, action) => {
         ]
       }
 
+      case 'CART_CHANGE_QTY':
+      return {
+        ...state,
+        cart: state.cart.map((prod)=>{
+          if(prod.id === action.productID){
+            return {...prod, current_order_qty: (prod.current_order_qty + 1)}
+          }else{
+            return prod;
+          }
+        })
+      }
+
     default:
       return state;
   };

@@ -3,6 +3,7 @@ import './App.css';
 import Search from './components/Search/containerSearch';
 import ProductsList from './components/products/ProductsList/containerProductsList';
 import ProductOverlay from './components/products/ProductOveray/containerProductOverlay';
+import Header from './components/Header/Header';
 
 class App extends Component {
 
@@ -15,6 +16,7 @@ class App extends Component {
   
     return (
       <div>
+        <Header />
         <Search />
         <ProductsList />
         <ProductOverlay />

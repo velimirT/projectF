@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ProductOverlay from './ProductOverlay';
-import { toggleIsOverShown, addProductToCart } from '../../../actions/actions';
+import { toggleIsOverShown, addToCart } from '../../../actions/actions';
 
 const mapStateToProps = state => {
   return({
@@ -12,7 +12,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return({
     toggleIsOverShown: () => dispatch(toggleIsOverShown()),
-    addProductToCart: (product) => dispatch(addProductToCart(product))
+    addProductToCart: (product) => dispatch(addToCart(product))
   });
 };
 

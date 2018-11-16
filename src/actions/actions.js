@@ -40,6 +40,33 @@ export const addProductToCart = (product) => {//add overlay product to the store
   });
 };
 
+export const changeQty = (productID) => {//add overlay product to the store
+  return ({
+    type: 'CART_CHANGE_QTY',
+    productID
+  });
+};
+
+export const addToCart = (product) => {
+  return (dispatch, getState) => {
+    let inCart = getState().cart.filter(prod => prod.id === product.id);
+    if(inCart.length === 0){
+      dispatch(
+        addProductToCart(
+          {
+            ...product, 
+            current_order_qty: 1
+          }
+        )
+      );    
+    }else if(product.qty > inCart[0].current_order_qty){
+      dispatch(changeQty(product.id));
+    }else{
+        alert("The available quantity for this item is exhausted!");
+    }
+  };
+};
+
 export const getRandomProducts = () => {//get random products in the beginging 
   return (dispatch) => {
     axios.get('/get-random-products')
