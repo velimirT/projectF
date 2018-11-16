@@ -13,6 +13,7 @@ const defaultState = {
     product_id: 6,
     title: 'Lamp'
   },
+  cart: [],
   isOverShown: false
 }
 
@@ -42,6 +43,15 @@ export default (state = { ...defaultState }, action) => {
         ...state,
         isOverShown: !state.isOverShown
       };
+
+    case 'ADD_PRODUCT_TO_CART':
+      return {
+        ...state,
+        cart: [
+          ...state.cart,
+          action.product
+        ]
+      }
 
     default:
       return state;
