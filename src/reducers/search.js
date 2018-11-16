@@ -1,4 +1,5 @@
 const defaultState = {
+  searchValue: 'Search default text',
   filters: ['materials', 'technique', 'size', 'color'],
   products: [],
   detailedProduct: {
@@ -17,6 +18,12 @@ const defaultState = {
 
 export default (state = { ...defaultState }, action) => {
   switch (action.type) {
+
+    case 'SET_SEARCH_VALUE':
+      return {
+        ...state,
+        searchValue: action.searchValue
+      };
 
     case 'ADD_PRODUCTS':
       return {

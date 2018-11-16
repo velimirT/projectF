@@ -7,6 +7,20 @@ export const addProducts = (products) => {//populate products arr
   });
 };
 
+export const setSearchValue = (searchValue) => {//set input value
+  return({
+    type: 'SET_SEARCH_VALUE',
+    searchValue
+  });
+};
+
+export const searchProducts = (searchValue) => {//search for products in db using user input
+  console.log(searchValue);
+  return ({
+    type: 'NONE'
+  });
+};
+
 export const addDetailedProduct = (product) => {//add overlay product to the store
   return ({
     type: 'ADD_DETAILED_PRODUCT',
