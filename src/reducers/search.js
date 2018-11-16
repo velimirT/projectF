@@ -13,6 +13,7 @@ const defaultState = {
     product_id: 6,
     title: 'Lamp'
   },
+  cart: [],
   isOverShown: false
 }
 
@@ -42,6 +43,27 @@ export default (state = { ...defaultState }, action) => {
         ...state,
         isOverShown: !state.isOverShown
       };
+
+    case 'ADD_PRODUCT_TO_CART':
+      return {
+        ...state,
+        cart: [
+          ...state.cart,
+          action.product
+        ]
+      }
+
+      case 'CART_CHANGE_QTY':
+      return {
+        ...state,
+        cart: state.cart.map((prod)=>{
+          if(prod.id === action.productID){
+            return {...prod, current_order_qty: (prod.current_order_qty + 1)}
+          }else{
+            return prod;
+          }
+        })
+      }
 
     default:
       return state;
