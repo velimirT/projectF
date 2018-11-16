@@ -1,5 +1,6 @@
 import React from 'react';
 import './product-overlay.css';
+import PayButton from '../../PayButton/PayButton';
 
 const ProductOverlay = ({isOverShown, detailedProduct, toggleIsOverShown}) => {
   const { category, img, price, product_desc: productDesc, title } = detailedProduct;
@@ -11,6 +12,8 @@ const ProductOverlay = ({isOverShown, detailedProduct, toggleIsOverShown}) => {
       <p>{category}</p>
       <p>{productDesc}</p>
       { price && <p>{price}$</p>}
+      
+      <PayButton />
     </div>
   )
 };

@@ -1,37 +1,28 @@
 import React from 'react';
 import './product-item.css';
 
-class ProductItem extends React.Component {
+const ProductItem = ({ values, getProduct }) => {
 
-  state = {
-    over: false
-  }
+  const { img, title, category, price, id } = values;
+  const style = { backgroundImage: `url(${img})`};
 
-  toggleOver = () => this.setState(prevState => ({ over: !prevState.over }));
-  
-  render() {
-    const { img, title, category, price, id } = this.props.values;
-    const { getProduct } = this.props;
-    const { over } = this.state;
-
-    return (
-      <div className="product-item  flex-center">
-        <div
-          className="product-item-content"
-          onClick={() => getProduct(id, category)}
-          onMouseEnter={this.toggleOver}
-          onMouseLeave={this.toggleOver}
-        >
-          <div className={over ? 'product-item-hover product-item-hover-opacity' : 'product-item-hover'}></div>
-          {img && <img className="product-item-img" src={img} alt="product cover" />}
-          {title ? <h3>{title}</h3> : 'no title availabe'}
-          {category && <p>{category}</p>}
-          {price && <p className="product-item-price">{price}$</p>}
+  return (
+    <div className="product-item  flex-center">
+      <div
+        className="product-item-content"
+        onClick={() => getProduct(id, category)}
+      >
+        <div className="product-item-hover" style={style}>
+          <div className="product-item-hover-black"></div>
         </div>
+        <h3>{title}</h3>
+        <p>{category}</p>
+        <p className="product-item-price">{price}$</p>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default ProductItem;
+
 

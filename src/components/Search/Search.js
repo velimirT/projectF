@@ -2,19 +2,33 @@ import React from 'react';
 import Filters from '../Filters/Filters';
 
 const Search = ({
-	search, 
+	searchValue,
 	filters,
-	handleSearchChange, 
-	handleSearchClick
+	setSearchValue,
+	searchProducts
 }) => {
-	return(
-		<div className = "search">
+	return (
+		<div className="search">
 			<h1>Search</h1>
-			<Filters filters = {filters}/>
-			<input type = "text" name = "search" defaultValue = {search} onChange = {handleSearchChange} className = "searchInput"/>
-			<button onClick = {handleSearchClick} className = "searchBtn">Search</button>
+			<Filters filters={filters} />
+			<input 
+				type="text"
+				name="search"
+				defaultValue={searchValue}
+				onChange={(e) => setSearchValue(e.target.value)}
+				className="searchInput"
+			/>
+			<button 
+				onClick={() => searchProducts(searchValue)}
+				className="searchBtn"
+			>Search</button>
 		</div>
 	)
-}
+};
 
 export default Search;
+
+Search.defaultProps = {
+	searchValue: 'Search default text'
+};
+
