@@ -7,6 +7,7 @@ const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 const publicPath = path.join(__dirname, '..', './build');
 const searchRoutes = require('./searchRoutes');
+const routesLogin = require('./loginRoutes');
 
 app.use(express.static(publicPath));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,12 +20,13 @@ app.get('/', (req, res) => {
 
 var gateway = braintree.connect({
   environment: braintree.Environment.Sandbox,
-  merchantId: "8bbbsp49xsz73jmb",
-  publicKey: "bmzht95j3qnjd7np",
-  privateKey: "38aba70f76790fac09e96196a80b4399"
+  merchantId: process.env.BRAINTREE_MERCHANT_ID,
+  publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+  privateKey: process.env.BRAINTREE_PRIVATE_KEY
 });
 
 searchRoutes(app);
+routesLogin(app);
 
 app.get("/client_token", function (req, res) {
   gateway.clientToken.generate({}, function (err, response) {
