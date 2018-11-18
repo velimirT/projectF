@@ -21,7 +21,7 @@ const defaultState = {
 
 export default (state = (localStorage['redux-store'] ?
             JSON.parse(localStorage['redux-store']) :
-            state
+            defaultState
  ), action) => {
   switch (action.type) {
 
@@ -75,6 +75,12 @@ export default (state = (localStorage['redux-store'] ?
         ...state,
         logged: true,
         user: action.user
+      }
+
+      case 'CLEAR_CART':
+      return {
+        ...state,
+        cart: []
       }
 
     default:

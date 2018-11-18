@@ -39,30 +39,33 @@ app.post("/checkout", function (req, res) {
   var amount = req.body.amount;
 
   // Use payment method nonce here
-  makeTransaction(nonceFromTheClient, amount);
+  makeTransaction(nonceFromTheClient, amount).then(function(result){
+    res.json(result);
+  }).catch(function(e){
+    res.status(500).json(e);
+  });
   //if returned value from makeTransaction is fals, return error instead of the success message
-
-  res.send("OKaay man! Transaction submitted");
 });
 
-function makeTransaction(nonceFromTheClient, amount){
-
-  gateway.transaction.sale({
-	  amount: parseFloat(amount),
-	  paymentMethodNonce: nonceFromTheClient,
-	  options: {
-	    submitForSettlement: true
-	  }
-	}, function (err, result) {
-	 if(err){
-     console.log(err);
-     return;    
-   }
-
-   console.log("SUccessfull Transaction!", result);
-
-	});
-}
+makeTransaction = (nonceFromTheClient, amount) => {
+    return new Promise((resolve, reject) => {
+      gateway.transaction.sale({
+        amount: parseFloat(amount),
+        paymentMethodNonce: nonceFromTheClient,
+        options: {
+          submitForSettlement: true
+        }
+      }, function (err, result) {
+       if(err){
+         console.log(err);
+         reject(err);    
+       }else{
+         resolve(result);
+         console.log("SUccessfull Transaction!", result);
+       }
+      });
+    })
+  }
 
 app.listen(PORT, () => {
   console.log('Server is up');

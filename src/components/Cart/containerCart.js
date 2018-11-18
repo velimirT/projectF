@@ -3,7 +3,9 @@ import Cart from './Cart';
 
 const mapStateToProps = state => {
   return ({
-    cart: state.cart
+    cart: state.cart,
+    logged: state.logged,
+    user: state.user
   });
 };
 

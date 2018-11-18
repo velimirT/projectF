@@ -54,6 +54,12 @@ export const loginUser = (user) => {//add overlay product to the store
   });
 };
 
+export const clearCart = () => {//add overlay product to the store
+  return ({
+    type: 'CLEAR_CART',
+  });
+};
+
 export const addToCart = (product) => {
   return (dispatch, getState) => {
     let inCart = getState().cart.filter(prod => prod.id === product.id);
@@ -122,3 +128,19 @@ return (dispatch) => {
     .catch(err => console.log(err));
 };
 };
+
+export const handleCheckout = (amount, payload_nonce) => {//get product from certain category
+return (dispatch) => {
+  axios.post('http://localhost:4000/checkout', {payment_method_nonce: payload_nonce, amount:amount}).then(function(res){
+    if(res.data.success === true){
+      console.log("Successfull Transaction!");
+      dispatch(clearCart());      
+    }
+    console.log("Transaction response: ", res);
+  }).catch(function(e){
+    alert("Unsuccessfull Transaction, please try again later!");
+    console.log("Axios Err: ", e);
+  });
+};
+};
+

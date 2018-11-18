@@ -4,10 +4,19 @@ import axios from 'axios';
 
 export default class PayButton extends React.Component {
 
-	state = {
+	constructor(props){
+		super(props);
+		this.state = {
 				hostedFieldsInstance: null,
 				token: null,
 			}
+
+		this.cart = this.props.cart;
+		this.amount = this.cart.reduce((acc, cur)=> acc + cur.price, 0);
+		this.handleCheckout = this.props.handleCheckout.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
 
 	componentDidMount(){
 		axios.get('http://localhost:4000/client_token').then(function(res){
@@ -29,18 +38,16 @@ export default class PayButton extends React.Component {
 
 	handleSubmit(e){
 	  	e.preventDefault();
+	  	const amount = this.amount;
+	  	// const handleSubmit = this.handleCheckout;
 		this.state.hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
 			if (tokenizeErr) {
 				console.error(tokenizeErr);
 				return;
 			}
-        	console.log('Got a nonce: ', payload.nonce);
-        	axios.post('http://localhost:4000/checkout', {payment_method_nonce: payload.nonce, amount:'10'}).then(function(res){
-        		console.log("Transaction response: ", res);
-        	}).catch(function(e){
-					console.log("Axios Err: ", e);
-				});
-	    });
+        	console.log('Got a nonce: ', amount, payload.nonce);
+        	this.handleCheckout(amount, payload.nonce)
+	    }.bind(this));
 	}
 
 	createForm(clientInstance){
