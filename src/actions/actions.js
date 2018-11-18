@@ -47,6 +47,13 @@ export const changeQty = (productID) => {//add overlay product to the store
   });
 };
 
+export const loginUser = (user) => {//add overlay product to the store
+  return ({
+    type: 'USER_LOGIN',
+    user
+  });
+};
+
 export const addToCart = (product) => {
   return (dispatch, getState) => {
     let inCart = getState().cart.filter(prod => prod.id === product.id);
@@ -69,7 +76,15 @@ export const addToCart = (product) => {
 
 export const getRandomProducts = () => {//get random products in the beginging 
   return (dispatch) => {
-    axios.get('/get-random-products')
+    let axiosConfig = {
+        headers: {
+            'Content-Type' : 'application/json; charset=UTF-8',
+            'Accept': 'Token',
+            "Access-Control-Allow-Origin": "*",
+        }
+      };
+
+    axios.get('http://localhost:4000/get-random-products')
       .then(res =>{
         if(res.status === 200) dispatch(addProducts(res.data));
       })
@@ -80,7 +95,7 @@ export const getRandomProducts = () => {//get random products in the beginging
 export const getProduct = (id, category) => {//get product from certain category
   return (dispatch) => {
     const values = JSON.stringify({id, category});
-    axios.get(`/get-product?values=${values}`)
+    axios.get(`http://localhost:4000/get-product?values=${values}`)
       .then(res => {
         if(res.status === 200) {
           dispatch(addDetailedProduct(res.data[0]));
@@ -90,4 +105,20 @@ export const getProduct = (id, category) => {//get product from certain category
       .then(res => res === 200 && dispatch(toggleIsOverShown()))
       .catch(err => console.log(err));
   };
+};
+
+export const handleLogin = (username, password) => {//get product from certain category
+return (dispatch) => {
+ axios.post('http://localhost:4000/login', {
+  username: username,
+  password: password
+ })
+    .then(res =>{
+      if(res.status === 200) {
+        console.log("Successfull login!", res.data);
+        dispatch(loginUser(res.data));
+      }
+    })
+    .catch(err => console.log(err));
+};
 };

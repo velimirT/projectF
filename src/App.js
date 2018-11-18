@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import Search from './components/Search/containerSearch';
-import ProductsList from './components/products/ProductsList/containerProductsList';
-import ProductOverlay from './components/products/ProductOveray/containerProductOverlay';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import Header from './components/Header/Header';
+import HomePage from './components/HomePage';
+import Cart from './components/Cart/containerCart';
 
 class App extends Component {
 
@@ -17,11 +17,12 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <main>
-          <Search />
-          <ProductsList />
-          <ProductOverlay />
-        </main>
+        <HashRouter>
+            <Switch>
+              <Route path = "/" exact component = {HomePage}/>
+              <Route path = "/cart" exact component = {Cart}/>
+            </Switch>
+         </HashRouter>
       </div>
     );
   };

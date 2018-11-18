@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const braintree = require("braintree");
 const cors = require('cors');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 const publicPath = path.join(__dirname, '..', './build');
 const searchRoutes = require('./searchRoutes');
 const routesLogin = require('./loginRoutes');
@@ -41,6 +41,7 @@ app.post("/checkout", function (req, res) {
   // Use payment method nonce here
   makeTransaction(nonceFromTheClient, amount);
   //if returned value from makeTransaction is fals, return error instead of the success message
+
   res.send("OKaay man! Transaction submitted");
 });
 

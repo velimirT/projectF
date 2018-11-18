@@ -14,10 +14,15 @@ const defaultState = {
     title: 'Lamp'
   },
   cart: [],
+  logged: false,
+  user: null,
   isOverShown: false
 }
 
-export default (state = { ...defaultState }, action) => {
+export default (state = (localStorage['redux-store'] ?
+            JSON.parse(localStorage['redux-store']) :
+            state
+ ), action) => {
   switch (action.type) {
 
     case 'SET_SEARCH_VALUE':
@@ -51,7 +56,7 @@ export default (state = { ...defaultState }, action) => {
           ...state.cart,
           action.product
         ]
-      }
+      };
 
       case 'CART_CHANGE_QTY':
       return {
@@ -63,6 +68,13 @@ export default (state = { ...defaultState }, action) => {
             return prod;
           }
         })
+      };
+
+      case 'USER_LOGIN':
+      return {
+        ...state,
+        logged: true,
+        user: action.user
       }
 
     default:

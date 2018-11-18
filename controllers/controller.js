@@ -20,6 +20,18 @@ module.exports = {
         resolve(res);
       })
     });
+  },
+  
+  login: (username, password) => {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT * FROM users WHERE username = ?';
+      connection.query(query, [username, password], (err, res) => {
+        if(err) reject(err);
+        resolve(res);
+      })
+    });
   }
+
+
 
 }
