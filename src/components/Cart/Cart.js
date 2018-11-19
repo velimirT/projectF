@@ -23,7 +23,7 @@ const Cart = ({
 						}
 					</ul>
 					<p className = "total">Total: ${amount}</p>
-					{logged && <PayButton amount = {amount}/>}
+					{logged ? <PayButton amount = {amount}/> : <h2>Please Login to procees with Checkout!</h2>}
 				</section>
 				 :
 					<h2>Your shopping cart is empty.</h2>

@@ -12,6 +12,7 @@ export default class PayButton extends React.Component {
 			}
 
 		this.cart = this.props.cart;
+		this.user = this.props.user;
 		this.amount = this.cart.reduce((acc, cur)=> acc + cur.price, 0);
 		this.handleCheckout = this.props.handleCheckout.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,7 +39,9 @@ export default class PayButton extends React.Component {
 
 	handleSubmit(e){
 	  	e.preventDefault();
-	  	const amount = this.amount;
+	  	let amount = this.amount;
+	  	let cart = this.cart;
+	  	let user = this.user;
 	  	// const handleSubmit = this.handleCheckout;
 		this.state.hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
 			if (tokenizeErr) {
@@ -46,7 +49,7 @@ export default class PayButton extends React.Component {
 				return;
 			}
         	console.log('Got a nonce: ', amount, payload.nonce);
-        	this.handleCheckout(amount, payload.nonce)
+        	this.handleCheckout(amount, payload.nonce, cart, user)
 	    }.bind(this));
 	}
 

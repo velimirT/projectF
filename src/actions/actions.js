@@ -129,12 +129,12 @@ return (dispatch) => {
 };
 };
 
-export const handleCheckout = (amount, payload_nonce) => {//get product from certain category
+export const handleCheckout = (amount, payload_nonce, cart, user) => {//get product from certain category
 return (dispatch) => {
-  axios.post('http://localhost:4000/checkout', {payment_method_nonce: payload_nonce, amount:amount}).then(function(res){
-    if(res.data.success === true){
+  axios.post('http://localhost:4000/checkout', {payment_method_nonce: payload_nonce, amount:amount, cart: JSON.stringify(cart), user: user}).then(function(res){
+    if(res.statusText === "OK"){
       console.log("Successfull Transaction!");
-      dispatch(clearCart());      
+      dispatch(clearCart());
     }
     console.log("Transaction response: ", res);
   }).catch(function(e){

@@ -8,6 +8,8 @@ const PORT = process.env.PORT || 4000;
 const publicPath = path.join(__dirname, '..', './build');
 const searchRoutes = require('./searchRoutes');
 const routesLogin = require('./loginRoutes');
+const controller = require('../controllers/controller');
+
 
 app.use(express.static(publicPath));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -37,10 +39,16 @@ app.get("/client_token", function (req, res) {
 app.post("/checkout", function (req, res) {
   var nonceFromTheClient = req.body.payment_method_nonce;
   var amount = req.body.amount;
+  var cart = req.body.cart;
+  var user = req.body.user;
 
   // Use payment method nonce here
-  makeTransaction(nonceFromTheClient, amount).then(function(result){
-    res.json(result);
+  makeTransaction(nonceFromTheClient, amount, cart, user).then(function(result){
+    controller.addOrder(amount, cart, user, result)
+      .then(result => res.json(result))
+      .catch(function(e){
+        console.log(e);
+      })
   }).catch(function(e){
     res.status(500).json(e);
   });
