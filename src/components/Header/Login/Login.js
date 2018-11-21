@@ -9,6 +9,7 @@ class Login extends React.Component{
 		}
 
 		this.handleLogin = this.props.handleLogin;
+		this.handleLogout = this.props.handleLogout;
 		this.handleUserChange = this.handleUserChange.bind(this);
 		this.handlePassChange = this.handlePassChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,8 +30,10 @@ class Login extends React.Component{
 	}
 
 	render(){
+
+
 			if(this.props.logged === true){ 
-				return(<p>Logged</p>)
+				return(<button onClick={this.handleLogout}>Logout</button>)
 			}else{
 				return(
 					<form  onSubmit={this.handleSubmit}>

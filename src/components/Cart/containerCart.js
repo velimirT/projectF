@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { changeQty, subtructFromQty, removeFromCart } from '../../actions/actions';
 import Cart from './Cart';
 
 const mapStateToProps = state => {
@@ -10,6 +11,14 @@ const mapStateToProps = state => {
 };
 
 
+const mapDispatchToProps = (dispatch) => {
+  return({
+    changeQty: (productId) => dispatch(changeQty(productId)),
+    subtructFromQty: (productId) => dispatch(subtructFromQty(productId)),
+    removeFromCart: (productId) => dispatch(removeFromCart(productId))
+  });
+};
+
 // const mapDispatchToProps = (dispatch) => {
 //   return({
 //     handleLogin: (username, password) => {
@@ -19,4 +28,4 @@ const mapStateToProps = state => {
 // };
 
 
-export default connect(mapStateToProps, null)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
