@@ -8,14 +8,13 @@ export const addProducts = (products) => {//populate products arr
 };
 
 export const setSearchValue = (searchValue) => {//set input value
-  return({
+  return ({
     type: 'SET_SEARCH_VALUE',
     searchValue
   });
 };
 
 export const searchProducts = (searchValue) => {//search for products in db using user input
-  console.log(searchValue);
   return ({
     type: 'NONE'
   });
@@ -40,9 +39,42 @@ export const addProductToCart = (product) => {//add overlay product to the store
   });
 };
 
-export const changeQty = (productID) => {//add overlay product to the store
+export const changeQty = (productID) => {
   return ({
     type: 'CART_CHANGE_QTY',
+    productID
+  });
+};
+
+export const subtructFromQty = (productID) => {
+  return({
+    type: 'SUBTRUCT_FROM_QTY',
+    productID
+  });
+};
+
+export const loginUser = (user) => {
+  return ({
+    type: 'USER_LOGIN',
+    user
+  });
+};
+
+export const logoutUser = () => {
+  return({
+    type: 'USER_LOGOUT'
+  })
+};
+
+export const clearCart = () => {
+  return ({
+    type: 'CLEAR_CART',
+  });
+};
+
+export const removeFromCart = (productID) => {
+  return ({
+    type: 'REMOVE_FROM_CART',
     productID
   });
 };
@@ -50,28 +82,36 @@ export const changeQty = (productID) => {//add overlay product to the store
 export const addToCart = (product) => {
   return (dispatch, getState) => {
     let inCart = getState().cart.filter(prod => prod.id === product.id);
-    if(inCart.length === 0){
+    if (inCart.length === 0) {
       dispatch(
         addProductToCart(
           {
-            ...product, 
+            ...product,
             current_order_qty: 1
           }
         )
-      );    
-    }else if(product.qty > inCart[0].current_order_qty){
+      );
+    } else if (product.qty > inCart[0].current_order_qty) {
       dispatch(changeQty(product.id));
-    }else{
-        alert("The available quantity for this item is exhausted!");
+    } else {
+      alert("The available quantity for this item is exhausted!");
     }
   };
 };
 
 export const getRandomProducts = () => {//get random products in the beginging 
   return (dispatch) => {
-    axios.get('/get-random-products')
-      .then(res =>{
-        if(res.status === 200) dispatch(addProducts(res.data));
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'Token',
+        "Access-Control-Allow-Origin": "*",
+      }
+    };
+
+    axios.get('http://localhost:4000/get-random-products')
+      .then(res => {
+        if (res.status === 200) dispatch(addProducts(res.data));
       })
       .catch(err => console.log(err));
   };
@@ -79,10 +119,10 @@ export const getRandomProducts = () => {//get random products in the beginging
 
 export const getProduct = (id, category) => {//get product from certain category
   return (dispatch) => {
-    const values = JSON.stringify({id, category});
-    axios.get(`/get-product?values=${values}`)
+    const values = JSON.stringify({ id, category });
+    axios.get(`http://localhost:4000/get-product?values=${values}`)
       .then(res => {
-        if(res.status === 200) {
+        if (res.status === 200) {
           dispatch(addDetailedProduct(res.data[0]));
           return res.status;
         }
@@ -91,3 +131,49 @@ export const getProduct = (id, category) => {//get product from certain category
       .catch(err => console.log(err));
   };
 };
+
+export const handleLogin = (username, password) => {
+  return (dispatch) => {
+    axios.defaults.withCredentials = true;
+    axios.post('http://localhost:4000/login', {
+      username: username,
+      password: password,
+    })
+      .then(res => {
+        if (res.status === 200) {
+          console.log("Successfull login!", res.data);
+          dispatch(loginUser(res.data));
+        }
+      })
+      .catch(err => console.log(err));
+  };
+};
+
+export const handleLogout = () => {
+  return (dispatch) => {
+    axios.post('http://localhost:4000/logout')
+      .then(res => {
+        if (res.status === 200) {
+          console.log("Successfull loginout!", res.data);
+          dispatch(logoutUser());
+        }
+      })
+      .catch(err => console.log(err));
+  };
+};
+
+export const handleCheckout = (amount, payload_nonce, cart, user) => {
+  return (dispatch) => {
+    axios.post('http://localhost:4000/checkout', { payment_method_nonce: payload_nonce, amount: amount, cart: JSON.stringify(cart), user: user }).then(function (res) {
+      if (res.statusText === "OK") {
+        console.log("Successfull Transaction!");
+        dispatch(clearCart());
+      }
+      console.log("Transaction response: ", res);
+    }).catch(function (e) {
+      alert("Unsuccessfull Transaction, please try again later!");
+      console.log("Axios Err: ", e);
+    });
+  };
+};
+

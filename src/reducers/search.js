@@ -14,10 +14,15 @@ const defaultState = {
     title: 'Lamp'
   },
   cart: [],
+  logged: false,
+  user: null,
   isOverShown: false
 }
 
-export default (state = { ...defaultState }, action) => {
+export default (state = (localStorage['redux-store'] ?
+  JSON.parse(localStorage['redux-store']) :
+  defaultState
+), action) => {
   switch (action.type) {
 
     case 'SET_SEARCH_VALUE':
@@ -51,18 +56,56 @@ export default (state = { ...defaultState }, action) => {
           ...state.cart,
           action.product
         ]
-      }
+      };
 
-      case 'CART_CHANGE_QTY':
+    case 'REMOVE_FROM_CART':
       return {
         ...state,
-        cart: state.cart.map((prod)=>{
-          if(prod.id === action.productID){
-            return {...prod, current_order_qty: (prod.current_order_qty + 1)}
+        cart: state.cart.filter(product => product.id !== action.productID)
+      };
+
+    case 'CART_CHANGE_QTY':
+      return {
+        ...state,
+        cart: state.cart.map((prod) => {
+          if (prod.id === action.productID) {
+            return { ...prod, current_order_qty: (prod.current_order_qty + 1) }
+          } else {
+            return prod;
+          }
+        })
+      };
+
+    case 'SUBTRUCT_FROM_QTY':
+      return {
+        ...state,
+        cart: state.cart.map((prod) => {
+          if (prod.id === action.productID){
+            return { ...prod, current_order_qty: (prod.current_order_qty - 1) } 
           }else{
             return prod;
           }
         })
+      };
+
+    case 'USER_LOGIN':
+      return {
+        ...state,
+        logged: true,
+        user: action.user
+      }
+
+    case 'USER_LOGOUT':
+      return {
+        ...state,
+        logged: false,
+        user: null
+      }
+
+    case 'CLEAR_CART':
+      return {
+        ...state,
+        cart: []
       }
 
     default:

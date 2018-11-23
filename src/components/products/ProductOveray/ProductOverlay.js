@@ -13,8 +13,6 @@ const ProductOverlay = ({isOverShown, detailedProduct, toggleIsOverShown, addPro
       <p>{productDesc}</p>
       { price && <p>{price}$</p>}
       <button onClick = {addProductToCart.bind(null, detailedProduct)}>Buy Now!</button>
-      
-      <PayButton />
     </div>
   )
 };
