@@ -1,30 +1,41 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var LocalStrategy = require('passport-local').Strategy;
-var bodyParser = require('body-parser');
-var session = require('express-session');
 var md5 = require('md5');
 require('dotenv').config();
 const controller = require('../controllers/controller');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
 
 module.exports = (app) => {
-
+	app.use(cookieParser());
 	app.use(session({
-		secret: "cats",
-		saveUninitialized: true,
-		resave: true
+		  secret: 'keyboard cat',
+		  resave: true,
+		  saveUninitialized: true,
+		  cookie: { secure: false }
 	}));
-	app.use(bodyParser.urlencoded({ extended: false }));
+	
 	app.use(passport.initialize());
 	app.use(passport.session());
+
 
 	passport.serializeUser(function (user, done) {
 		console.log("User Serialize", user.id);
 		done(null, user.id);
 	});
 
-	passport.deserializeUser(function (id, done) {
-		return done(null, id);
+	passport.deserializeUser(function (user, done) {
+		console.log("Deserialize");
+		controller.get_user(user)
+				.then(function (result) {
+					console.log("Deserialize: ", result);
+					return done(null, result);
+				}).catch(function(e){
+					console.log("Error", e);
+					return done(e);
+				})
+
 	});
 	// Use the GoogleStrategy within Passport.
 	//   Strategies in Passport require a `verify` function, which accept
@@ -46,7 +57,7 @@ module.exports = (app) => {
 
 	passport.use(new LocalStrategy(
 		function (username, password, done) {
-			controller.login(username, password)
+			controller.login(username)
 				.then(function (result) {
 					if (md5(password) === result[0].password) {
 						var user = {
@@ -74,7 +85,7 @@ module.exports = (app) => {
 		}));
 
 	app.get('/islogged', function (req, res) {
-		console.log(req.user);
+		console.log(req.session);
 		if (req.user) {
 			res.send(req.user);
 		} else {
@@ -90,11 +101,18 @@ module.exports = (app) => {
 			if (!user) {
 				return res.status(401).json(info.message);
 			}
-			res.json(user);
+			req.login(user, function (err) { // <-- Log user in
+				if(err) return res.send("Error: ", err);
+				 req.session.save(function(){ 
+					console.log("session saved!", req.session)
+				 });
+				return res.json(user);
+			});
 		})(req, res, next);
 	});
 
 	app.post('/logout', function (req, res, next) {
+		console.log("Req:", req.user);
 		req.logout();
 		if(!req.user){
 			res.send("ok");

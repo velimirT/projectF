@@ -4,7 +4,7 @@ module.exports = {
 
   getRandomProducts: () => {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT * FROM products ORDER BY RAND() LIMIT 5;';
+      const query = 'SELECT * FROM products ORDER BY RAND() LIMIT 8;';
       connection.query(query, (err, res) => {
         if(err) reject(err);
         resolve(res);
@@ -22,10 +22,20 @@ module.exports = {
     });
   },
   
-  login: (username, password) => {
+  login: (username) => {
     return new Promise((resolve, reject) => {
       const query = 'SELECT * FROM users WHERE username = ?';
-      connection.query(query, [username, password], (err, res) => {
+      connection.query(query, [username], (err, res) => {
+        if(err) reject(err);
+        resolve(res);
+      })
+    });
+  },
+  
+  get_user: (user_id) => {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT * FROM users WHERE id = ?';
+      connection.query(query, [user_id], (err, res) => {
         if(err) reject(err);
         resolve(res);
       })
@@ -48,6 +58,9 @@ module.exports = {
         }
         let query = 'INSERT INTO orders SET ?'
         connection.query(query, post, (err, res) => {
+
+
+          
           if(err) reject(err);
           console.log("Post", i);
           if(i == orders_list.length - 1){

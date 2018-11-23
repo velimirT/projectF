@@ -134,9 +134,10 @@ export const getProduct = (id, category) => {//get product from certain category
 
 export const handleLogin = (username, password) => {
   return (dispatch) => {
+    axios.defaults.withCredentials = true;
     axios.post('http://localhost:4000/login', {
       username: username,
-      password: password
+      password: password,
     })
       .then(res => {
         if (res.status === 200) {
