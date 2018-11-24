@@ -5,6 +5,7 @@ import Login from './Login/containerLogin.js';
 import './header.css';
 
 const Header = ({logged}) => {
+
 	return(
 		<header>
 			<Cart />

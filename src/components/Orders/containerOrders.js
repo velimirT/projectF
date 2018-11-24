@@ -1,10 +1,17 @@
 import { connect } from 'react-redux';
+import { getUserOrders } from '../../actions/actions';
 import Orders from './Orders';
 
 const mapStateToProps = (state) => {
   return ({
-    cart: state.cart
+    orders: state.orders
   });
 };
 
-export default connect(mapStateToProps)(Orders);
+const mapDispatchToProps = (dispatch) => {
+  return ({
+    getUserOrders: () => dispatch(getUserOrders())
+  });
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Orders);

@@ -1,22 +1,35 @@
 import React from 'react';
 import Order from '../Order/containerOrder';
 
-const Orders = ({ cart }) => {
+class Orders extends React.Component {
 
-  const amount = cart.reduce((acc, item) => acc + (item.price * item.current_order_qty), 0);
+  componentDidMount() {
+    const { getUserOrders } = this.props;
+    getUserOrders();
+  }
 
-  return (
-    <div>
-      {cart.length > 0 ?
+  render() {
+    const { orders } = this.props;
+
+    const amount = orders.reduce((acc, item) => acc + (item.amount * item.qty), 0);
+
+    return (
+      <div>
+      {orders.length > 0 ?
         <div>
           <ul>
-            {cart.map((item, index) => <Order key={index} value={item} />)}
+            {orders.map((item, index) => <Order key={index} value={item} />)}
           </ul>
           <p>Total: {amount}</p>
         </div>
         : <p>No orders yet</p>}
-    </div>
-  )
+      </div>
+    )
+  }
 };
 
 export default Orders;
+
+
+
+

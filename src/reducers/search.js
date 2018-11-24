@@ -2,6 +2,7 @@ const defaultState = {
   searchValue: 'Search default text',
   filters: ['materials', 'technique', 'size', 'color'],
   products: [],
+  orders: [],
   detailedProduct: {
     author_id: 1,
     category: 'category',
@@ -35,6 +36,12 @@ export default (state = (localStorage['redux-store'] ?
       return {
         ...state,
         products: [...action.products]
+      };
+
+    case 'ADD_ORDERS':
+      return {
+        ...state,
+        orders: [...action.orders]
       };
 
     case 'ADD_DETAILED_PRODUCT':

@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 4000;
 const publicPath = path.join(__dirname, '..', './build');
 const searchRoutes = require('./searchRoutes');
 const routesLogin = require('./loginRoutes');
+const ordersRoutes = require('./ordersRoutes');
 const controller = require('../controllers/controller');
 
 app.use(express.static(publicPath));
@@ -46,7 +47,8 @@ var gateway = braintree.connect({
       next();
   });
 searchRoutes(app);
-routesLogin(app);//ddss
+routesLogin(app);
+ordersRoutes(app);
 
 app.get("/client_token", function (req, res) {
   gateway.clientToken.generate({}, function (err, response) {

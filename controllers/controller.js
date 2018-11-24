@@ -70,5 +70,20 @@ module.exports = {
         
       }
     });
+  },
+
+  getOrders: (userID) => {
+    return new Promise((resolve, reject) => {
+      const query = `select orders.created_at , orders.payment_status, orders.qty, orders.amount, products.title, products.img from orders
+      left join products
+      on orders.product_id = products.id
+      where orders.user_id = ?
+      order by orders.created_at`;
+
+      connection.query(query, [userID], (err, res) => {
+        if(err) reject(err);
+        resolve(res);
+      });
+    });
   }
 }
