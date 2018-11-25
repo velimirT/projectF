@@ -34,6 +34,13 @@ export const addDetailedProduct = (product) => {//add overlay product to the sto
   });
 };
 
+export const addUserInfo = (userInfo) => {
+  return({
+    type: 'ADD_USER_INFO',
+    userInfo
+  });
+};
+
 export const toggleIsOverShown = () => {//show or hide overlay
   return ({ type: 'TOGGLE_IS_OVER_SHOWN' });
 };
@@ -193,6 +200,29 @@ export const getUserOrders = () => {
           }
       })
       .catch(err => console.log(err));
-  }
-}
+  };
+};
+
+export const getUserInfo = () => {
+  return (dispatch) => {
+    axios.get('http://localhost:4000/get-user-info')
+      .then(res => {
+        if(res.status === 200){
+          console.log(res.data[0]);
+          dispatch(addUserInfo(res.data[0]));
+        }
+      })
+      .catch(err => console.log(err));
+  };
+};
+
+export const updateUserInfo = (userInfo) => {
+  return (dispatch) => {
+    axios.post('http://localhost:4000/update-user-info', {userInfo})
+      .then(res => {
+        if(res.status === 200) console.log('updated');
+      })
+      .catch(err => console.log(err));
+  };
+};
 

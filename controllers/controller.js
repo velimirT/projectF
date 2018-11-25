@@ -86,5 +86,27 @@ module.exports = {
         resolve(res);
       });
     });
+  },
+
+  getUserInfo: (userID) => {
+    return new Promise((resolve, reject) => {
+      const query = `select * from users where id = ?`;
+
+      connection.query(query, [userID], (err, res) => {
+        if(err) reject(err);
+        resolve(res);
+      });
+    });
+  },
+
+  updateUserInfo: (userInfo, userID) => {
+    return new Promise((resolve, reject) => {
+      const query = 'UPDATE users SET ? WHERE id = ?'
+      connection.query(query, [userInfo, userID], (err, res) => {
+        if(err) reject(err);
+        resolve(res);
+      });
+    });
   }
+  
 }

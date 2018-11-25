@@ -1,4 +1,18 @@
 import { connect } from 'react-redux';
-import UserFrom from './UserForm'; 
+import { getUserInfo, updateUserInfo } from '../../actions/actions';
+import UserFrom from './UserForm';
 
-export default connect()(UserFrom);
+const mapStateToProps = (state) => {
+  return ({
+    userInfo: state.userInfo
+  });
+};
+
+const mapDispatchFromProps = (dispatch) => {
+  return ({
+    getUserInfo: () => dispatch(getUserInfo()),
+    updateUserInfo: (userInfo) => dispatch(updateUserInfo(userInfo))
+  });
+};
+
+export default connect(mapStateToProps, mapDispatchFromProps)(UserFrom);

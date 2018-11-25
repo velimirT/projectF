@@ -1,4 +1,10 @@
 import { connect } from 'react-redux';
 import Profile from './Profile';
 
-export default connect()(Profile);
+const mapStateToProps = (state) => {
+  return({
+    logged: state.logged
+  });
+};
+
+export default connect(mapStateToProps)(Profile);

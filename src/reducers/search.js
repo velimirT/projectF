@@ -1,6 +1,7 @@
 const defaultState = {
   searchValue: 'Search default text',
   filters: ['materials', 'technique', 'size', 'color'],
+  cart: [],
   products: [],
   orders: [],
   detailedProduct: {
@@ -14,9 +15,9 @@ const defaultState = {
     product_id: 6,
     title: 'Lamp'
   },
-  cart: [],
   logged: false,
   user: null,
+  userInfo: null,
   isOverShown: false
 }
 
@@ -42,6 +43,12 @@ export default (state = (localStorage['redux-store'] ?
       return {
         ...state,
         orders: [...action.orders]
+      };
+
+    case 'ADD_USER_INFO':
+      return {
+        ...state,
+        userInfo: { ...action.userInfo }
       };
 
     case 'ADD_DETAILED_PRODUCT':
@@ -87,9 +94,9 @@ export default (state = (localStorage['redux-store'] ?
       return {
         ...state,
         cart: state.cart.map((prod) => {
-          if (prod.id === action.productID){
-            return { ...prod, current_order_qty: (prod.current_order_qty - 1) } 
-          }else{
+          if (prod.id === action.productID) {
+            return { ...prod, current_order_qty: (prod.current_order_qty - 1) }
+          } else {
             return prod;
           }
         })
