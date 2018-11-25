@@ -73,7 +73,6 @@ module.exports = {
   },
 
   getOrders: (userID) => {
-    console.log('inside database');
     return new Promise((resolve, reject) => {
       const query = `select orders.created_at , orders.payment_status, orders.qty, orders.amount, products.title, products.img from orders
       left join products

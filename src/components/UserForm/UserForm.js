@@ -1,19 +1,24 @@
 import React from 'react';
+import { getUserInfo } from '../../actions/actions';
 
 class UserForm extends React.Component {
-  
+
   state = {
-    username: this.props.userInfo.username || '',
+    username: '',
     password: '',
-    email: this.props.userInfo.email || '',
-    address: this.props.userInfo.address || '',
-    firstName: this.props.userInfo.first_name || '',
-    lastName: this.props.userInfo.last_name || ''
+    email: '',
+    address: '',
+    firstName: '',
+    lastName: '',
   }
 
-  componentDidMount(){
-    const { getUserInfo } = this.props;
-    getUserInfo();
+  componentDidMount() {
+    getUserInfo()
+      .then(res =>{
+        const { username, email, address, last_name:lastName, first_name: firstName } = res;
+        this.setState(() => ({ username, email, address, lastName, firstName }));
+      })
+      .catch(err => console.log(err));
   };
 
   handleOnchange = (e) => {
@@ -26,7 +31,7 @@ class UserForm extends React.Component {
     e.preventDefault();
 
     const { updateUserInfo } = this.props;
-    const {username, email, address, firstName, lastName} = this.state;
+    const { username, email, address, firstName, lastName } = this.state;
     const userInfo = {
       username: username.trim(),
       email: email.trim(),
