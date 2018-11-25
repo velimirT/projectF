@@ -8,8 +8,9 @@ const Header = ({logged}) => {
 
 	return(
 		<header>
-			<Cart />
+			<Link to='/cart'><Cart /></Link>
 			<Login />
+			<Link to='/' replace>Home</Link>
 			{ logged && <Link to='/profile' replace >Profile</Link>}
 		</header>
 	)

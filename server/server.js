@@ -78,7 +78,7 @@ app.post("/checkout", function (req, res) {
 makeTransaction = (nonceFromTheClient, amount) => {
     return new Promise((resolve, reject) => {
       gateway.transaction.sale({
-        amount: parseFloat(amount),
+        amount: Math.round(parseFloat(amount) * 100) / 100,
         paymentMethodNonce: nonceFromTheClient,
         options: {
           submitForSettlement: true

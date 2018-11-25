@@ -4,14 +4,19 @@ import Order from '../Order/containerOrder';
 class Orders extends React.Component {
 
   componentDidMount() {
+    console.log('orders mounted');
     const { getUserOrders } = this.props;
     getUserOrders();
+  }
+
+  componentWillUnmount(){
+    console.log('orders unmounted');
   }
 
   render() {
     const { orders } = this.props;
 
-    const amount = orders.reduce((acc, item) => acc + (item.amount * item.qty), 0);
+    const amount = orders && orders.reduce((acc, item) => acc + (item.amount * item.qty), 0).toFixed(2);
 
     return (
       <div>
@@ -20,7 +25,7 @@ class Orders extends React.Component {
           <ul>
             {orders.map((item, index) => <Order key={index} value={item} />)}
           </ul>
-          <p>Total: {amount}</p>
+          <p>Total: {amount}$</p>
         </div>
         : <p>No orders yet</p>}
       </div>
