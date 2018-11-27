@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { withRouter } from 'react-router'
 
 class Login extends React.Component{
 	constructor(props){
@@ -9,10 +10,15 @@ class Login extends React.Component{
 		}
 
 		this.handleLogin = this.props.handleLogin;
-		this.handleLogout = this.props.handleLogout;
 		this.handleUserChange = this.handleUserChange.bind(this);
 		this.handlePassChange = this.handlePassChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	handleLogout = () => {
+		const { handleLogout, history } = this.props;
+		if(history.location.pathname !== '/') history.push('/');
+		handleLogout();
 	}
 
 	handleUserChange(e){
@@ -47,4 +53,4 @@ class Login extends React.Component{
 }
 
 
-export default Login;
+export default withRouter(Login);

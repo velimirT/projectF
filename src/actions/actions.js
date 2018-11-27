@@ -20,10 +20,24 @@ export const searchProducts = (searchValue) => {//search for products in db usin
   });
 };
 
+export const addOrders = (orders) => {//search for products in db using user input
+  return ({
+    type: 'ADD_ORDERS',
+    orders
+  });
+};
+
 export const addDetailedProduct = (product) => {//add overlay product to the store
   return ({
     type: 'ADD_DETAILED_PRODUCT',
     product
+  });
+};
+
+export const addUserInfo = (userInfo) => {
+  return({
+    type: 'ADD_USER_INFO',
+    userInfo
   });
 };
 
@@ -177,3 +191,66 @@ export const handleCheckout = (amount, payload_nonce, cart, user) => {
   };
 };
 
+export const getUserOrders = () => {
+  return (dispatch) => {
+    axios.defaults.withCredentials = true;
+    axios.get('http://localhost:4000/get-user-orders')
+      .then(res => {
+          if(res.status === 200){
+            dispatch(addOrders(res.data));
+          }
+      })
+      .catch(err => console.log(err));
+  };
+};
+
+// export const getUserInfo = () => {
+//   return (dispatch) => {
+//     axios.defaults.withCredentials = true;
+//     axios.get('http://localhost:4000/get-user-info')
+//       .then(res => {
+//         if(res.status === 200){
+//           console.log(res.data[0]);
+//           dispatch(addUserInfo(res.data[0]));
+//           return res.data[0];
+//         }
+//       })
+//       .catch(err => console.log(err));
+//   };
+// };
+
+export const getUserInfo = () => {
+  return new Promise((resolve, reject) => {
+    axios.defaults.withCredentials = true;
+    axios.get('http://localhost:4000/get-user-info')
+      .then(res => {
+        if(res.status === 200){
+          resolve(res.data[0]);
+        }
+      })
+      .catch(err => reject(err));
+  });
+ };
+
+
+export const updateUserInfo = (userInfo) => {
+  return (dispatch) => {
+    axios.defaults.withCredentials = true;
+    axios.post('http://localhost:4000/update-user-info', {userInfo})
+      .then(res => {
+        if(res.status === 200) console.log('updated');
+      })
+      .catch(err => console.log(err));
+  };
+};
+
+export const addNewUser = (userInfo) => {
+  return (dispatch) => {
+    axios.defaults.withCredentials = true;
+    axios.post('http://localhost:4000/add-new-user', {userInfo})
+      .then(res => {
+        if(res.status === 200) console.log('user added');
+      })
+      .catch(err => console.log(err));
+  };
+};

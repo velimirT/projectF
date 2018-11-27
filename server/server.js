@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 4000;
 const publicPath = path.join(__dirname, '..', './build');
 const searchRoutes = require('./searchRoutes');
 const routesLogin = require('./loginRoutes');
+const ordersRoutes = require('./ordersRoutes');
 const controller = require('../controllers/controller');
 
 app.use(express.static(publicPath));
@@ -46,7 +47,8 @@ var gateway = braintree.connect({
       next();
   });
 searchRoutes(app);
-routesLogin(app);//ddss
+routesLogin(app);
+ordersRoutes(app);
 
 app.get("/client_token", function (req, res) {
   gateway.clientToken.generate({}, function (err, response) {
@@ -76,7 +78,7 @@ app.post("/checkout", function (req, res) {
 makeTransaction = (nonceFromTheClient, amount) => {
     return new Promise((resolve, reject) => {
       gateway.transaction.sale({
-        amount: parseFloat(amount),
+        amount: Math.round(parseFloat(amount) * 100) / 100,
         paymentMethodNonce: nonceFromTheClient,
         options: {
           submitForSettlement: true

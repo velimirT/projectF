@@ -1,13 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Cart from './CartButton/containerCart.js';
 import Login from './Login/containerLogin.js';
 import './header.css';
 
-const Header = () => {
+const Header = ({logged}) => {
+
 	return(
 		<header>
-			<Cart />
+			<Link to='/cart'><Cart /></Link>
 			<Login />
+			<Link to='/' replace>Home</Link>
+			{ !logged && <Link to='/register' replace >Register</Link>}
+			{ logged && <Link to='/profile' replace >Profile</Link>}
+			{ logged && <Link to='/orders' replace >Orders</Link>}
 		</header>
 	)
 }

@@ -40,7 +40,7 @@ const Cart = ({
 								)
 							}
 						</ul>
-						<p className="total">Total: ${amount}</p>
+						<p className="total">Total: ${amount.toFixed(2)}</p>
 						{logged ? <PayButton amount={amount} /> : <h2>Please Login to procees with Checkout!</h2>}
 					</section>
 					:

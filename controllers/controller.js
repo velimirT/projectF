@@ -70,5 +70,52 @@ module.exports = {
         
       }
     });
+  },
+
+  getOrders: (userID) => {
+    return new Promise((resolve, reject) => {
+      const query = `select orders.created_at , orders.payment_status, orders.qty, orders.amount, products.title, products.img from orders
+      left join products
+      on orders.product_id = products.id
+      where orders.user_id = ?
+      order by orders.created_at DESC`;
+
+      connection.query(query, [userID], (err, res) => {
+        if(err) reject(err);
+        resolve(res);
+      });
+    });
+  },
+
+  getUserInfo: (userID) => {
+    return new Promise((resolve, reject) => {
+      const query = `SELECT * FROM users WHERE id = ?`;
+
+      connection.query(query, [userID], (err, res) => {
+        if(err) reject(err);
+        resolve(res);
+      });
+    });
+  },
+
+  updateUserInfo: (userInfo, userID) => {
+    return new Promise((resolve, reject) => {
+      const query = 'UPDATE users SET ? WHERE id = ?'
+      connection.query(query, [userInfo, userID], (err, res) => {
+        if(err) reject(err);
+        resolve(res);
+      });
+    });
+  },
+
+  addNewUser: (userInfo) => {
+    return new Promise((resolve, reject) => {
+      const query = 'INSERT INTO users SET ?';
+      connection.query(query, [userInfo], (err, res) => {
+        if(err) reject(err);
+        resolve(res);
+      });
+    });
   }
+  
 }
