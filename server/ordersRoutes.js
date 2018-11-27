@@ -1,4 +1,5 @@
 const controller = require('../controllers/controller');
+const md5 = require('md5');
 
 module.exports = app => {
   
@@ -22,7 +23,7 @@ module.exports = app => {
         })
         .catch(err => console.log(err));
     }
-  })
+  }),
 
   app.post('/update-user-info', (req, res) => {
     const userID = req.user ? req.user[0].id : null;
@@ -30,10 +31,20 @@ module.exports = app => {
     if(userID){
       controller.updateUserInfo(userInfo, userID)
         .then(result => {
-          console.log(result);
           res.json(result);
         })
         .catch(err => console.log(err))
     }
+  }),
+
+  app.post('/add-new-user', (req, res) => {
+    const userInfo = req.body.userInfo;
+    userInfo.password = md5(userInfo.password);
+    controller.addNewUser(userInfo)
+      .then(result => {
+        res.json(result);
+      })
+      .catch(err => console.log(err));
+
   })
 }

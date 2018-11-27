@@ -244,3 +244,13 @@ export const updateUserInfo = (userInfo) => {
   };
 };
 
+export const addNewUser = (userInfo) => {
+  return (dispatch) => {
+    axios.defaults.withCredentials = true;
+    axios.post('http://localhost:4000/add-new-user', {userInfo})
+      .then(res => {
+        if(res.status === 200) console.log('user added');
+      })
+      .catch(err => console.log(err));
+  };
+};

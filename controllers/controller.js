@@ -89,7 +89,7 @@ module.exports = {
 
   getUserInfo: (userID) => {
     return new Promise((resolve, reject) => {
-      const query = `select * from users where id = ?`;
+      const query = `SELECT * FROM users WHERE id = ?`;
 
       connection.query(query, [userID], (err, res) => {
         if(err) reject(err);
@@ -102,6 +102,16 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const query = 'UPDATE users SET ? WHERE id = ?'
       connection.query(query, [userInfo, userID], (err, res) => {
+        if(err) reject(err);
+        resolve(res);
+      });
+    });
+  },
+
+  addNewUser: (userInfo) => {
+    return new Promise((resolve, reject) => {
+      const query = 'INSERT INTO users SET ?';
+      connection.query(query, [userInfo], (err, res) => {
         if(err) reject(err);
         resolve(res);
       });

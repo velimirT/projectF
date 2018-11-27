@@ -1,16 +1,10 @@
 import React from 'react';
-import Orders from '../Orders/containerOrders';
 import UserForm from '../UserForm/containerUserForm';
 
 const Profile = ({ logged }) => {
   return (
     <div>
-      {logged ?
-        <div>
-          <Orders />
-          <UserForm />
-        </div> :
-        <p>Log in to see orders</p>}
+      {logged ? <UserForm /> : <p>Log in to see edit form</p>}
     </div>
   )
 };

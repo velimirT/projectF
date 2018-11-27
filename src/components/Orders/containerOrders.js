@@ -4,7 +4,8 @@ import Orders from './Orders';
 
 const mapStateToProps = (state) => {
   return ({
-    orders: state.orders
+    orders: state.orders,
+    logged: state.logged
   });
 };
 
