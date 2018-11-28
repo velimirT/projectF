@@ -93,6 +93,29 @@ export const removeFromCart = (productID) => {
   });
 };
 
+export const setFilter = (name, value) => {
+  return({
+    type: 'SET_FILTER',
+    name,
+    value
+  })
+}
+
+export const chooseCategory = (id) => {
+  return({
+    type: 'CHOOSE_CATEGORY',
+    id
+  })
+}
+
+export const chooseFilter = (id) => {
+  return({
+    type: 'CHOOSE_FILTER',
+    id
+  })
+}
+
+
 export const addToCart = (product) => {
   return (dispatch, getState) => {
     let inCart = getState().cart.filter(prod => prod.id === product.id);
