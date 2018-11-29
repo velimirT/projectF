@@ -1,10 +1,35 @@
 const connection = require('../models/connection');
+const categories = require('../models/categories');
 
 module.exports = {
 
   getRandomProducts: () => {
     return new Promise((resolve, reject) => {
       const query = 'SELECT * FROM products ORDER BY RAND() LIMIT 8;';
+      connection.query(query, (err, res) => {
+        if(err) reject(err);
+        resolve(res);
+      })
+    })
+  },
+
+  searchProducts: (search) => {
+    return new Promise((resolve, reject) => {
+      
+      const category = categories[search.category].filters;
+      let sql_query = "SELECT * FROM "+search.category;
+      let first_filter = true;
+
+      for(let filter in categories[search.category].filters){
+        let in_category = search.filters.filter((req_filter)=> req_filter.name == filter);
+        if(in_category.length > 0){
+          sql_query += category[in_category[0].name](in_category[0].value, first_filter);
+          first_filter = false;
+        }
+      }
+      console.log("Final Query", sql_query);
+
+      const query = 'SELECT * FROM products ORDER BY id LIMIT 8;';
       connection.query(query, (err, res) => {
         if(err) reject(err);
         resolve(res);

@@ -5,7 +5,8 @@ const Search = ({
 	searchValue,
 	filters,
 	setSearchValue,
-	searchProducts
+	searchProducts,
+	category
 }) => {
 	return (
 		<div className="search">
@@ -19,7 +20,7 @@ const Search = ({
 				className="searchInput"
 			/>
 			<button 
-				onClick={() => searchProducts(searchValue)}
+				onClick={() => searchProducts(searchValue, filters, category)}
 				className="searchBtn"
 			>Search</button>
 		</div>

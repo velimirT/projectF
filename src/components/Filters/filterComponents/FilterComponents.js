@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import MaterialsUI from './Materials';
 // import Technique from './Technique';
-import { setFilter } from '../../../actions/actions';
+import { setFilter, chooseFilter  } from '../../../actions/actions';
 
 export const materials = connect(
 	store => 
@@ -13,6 +13,9 @@ export const materials = connect(
 		({
 			handle_change(name, value){
 				dispatch(setFilter(name, value))
+			},
+			handle_filter_change(name){
+				dispatch(chooseFilter(name));
 			}
 		})
 )(MaterialsUI);

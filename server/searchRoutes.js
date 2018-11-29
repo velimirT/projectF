@@ -13,6 +13,12 @@ module.exports = app => {
     controller.getProduct(id, category)
       .then(result => res.json(result))
       .catch(err => console.log(err));
+  }),
+
+  app.post('/search', (req, res) => {
+    controller.searchProducts(req.body)
+      .then(result => res.json(result))
+      .catch(err => console.log(err));
   })
 
 }

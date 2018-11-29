@@ -156,7 +156,7 @@ export default (state = (localStorage['redux-store'] ?
       case 'CHOOSE_FILTER':
       return{
         ...state,
-        active_filter: action.id
+        active_filter: action.name
       }
 
     default:

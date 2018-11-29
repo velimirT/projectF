@@ -16,7 +16,7 @@ const Filters = ({
 	                      let FilterComponent = filter_components[filters[i].name];
 	                      if(FilterComponent){
 		                      return(
-	           	                   <FilterComponent key = {i} onClick = {()=> {console.log("Clicked!"); choose_filter(i)}}/>
+	           	                   <FilterComponent key = {i} />
 	                            )
 	                      }
 	                    })
