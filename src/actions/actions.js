@@ -188,7 +188,7 @@ export const handleLogout = () => {
           console.log("Successfull loginout!", res.data);
           dispatch(logoutUser());
         }
-      })
+      }) 
       .catch(err => console.log(err));
   };
 };
@@ -266,7 +266,9 @@ export const addNewUser = (userInfo) => {
     axios.defaults.withCredentials = true;
     axios.post('http://localhost:4000/add-new-user', {userInfo})
       .then(res => {
-        if(res.status === 200) console.log('user added');
+        if(res.status === 200) {
+          dispatch(handleLogin(userInfo.username, userInfo.password));
+        };
       })
       .catch(err => console.log(err));
   };
