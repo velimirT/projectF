@@ -9,6 +9,12 @@ const defaultState = {
     },{
       name: 'tapestry',
       filters:['product_type', 'product_materials']
+    },{
+      name: 'pottery',
+      filters: []
+    },{
+      name: 'woodcraft',
+      filters: []
     }
   ],
   filters: [

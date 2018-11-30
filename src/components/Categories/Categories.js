@@ -1,4 +1,5 @@
 import React from 'react';
+import './categories.css';
 
 const Cart = ({
 	categories,
@@ -6,7 +7,7 @@ const Cart = ({
 }) => {
 				if(categories.length){
 					return (
-						<ul>
+						<ul className="categories">
 							{
 								categories.map((category, i) =>
 									<li key={i} onClick = {(e)=>{chooseCategory(i)}}>
