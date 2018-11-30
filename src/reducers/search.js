@@ -1,6 +1,16 @@
 const defaultState = {
   searchValue: 'Search default text',
-  filters: ['materials', 'technique', 'size', 'color'],
+  active_category: null,
+  active_filter: null,
+  categories:[
+    { 
+      name: 'drawings',
+      filters:['materials']
+    }
+  ],
+  filters: [
+    
+  ],
   cart: [],
   products: [],
   orders: [],
@@ -120,6 +130,33 @@ export default (state = (localStorage['redux-store'] ?
       return {
         ...state,
         cart: []
+      }
+
+    case 'SET_FILTER':
+      return{
+        ...state,
+        filters: state.filters.map((filter) => {
+          if(filter.name === action.name){
+            return {name: filter.name,  value: action.value}
+          }else{
+            return filter;
+          }
+        })
+      }
+
+      case 'CHOOSE_CATEGORY':
+      return{
+        ...state,
+        active_category: action.id,
+        filters: state.categories[action.id].filters.map((filter)=>{
+          return {name: filter, value: null}
+        })
+      }
+
+      case 'CHOOSE_FILTER':
+      return{
+        ...state,
+        active_filter: action.name
       }
 
     default:

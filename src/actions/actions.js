@@ -14,12 +14,6 @@ export const setSearchValue = (searchValue) => {//set input value
   });
 };
 
-export const searchProducts = (searchValue) => {//search for products in db using user input
-  return ({
-    type: 'NONE'
-  });
-};
-
 export const addOrders = (orders) => {//search for products in db using user input
   return ({
     type: 'ADD_ORDERS',
@@ -92,6 +86,29 @@ export const removeFromCart = (productID) => {
     productID
   });
 };
+
+export const setFilter = (name, value) => {
+  return({
+    type: 'SET_FILTER',
+    name,
+    value
+  })
+}
+
+export const chooseCategory = (id) => {
+  return({
+    type: 'CHOOSE_CATEGORY',
+    id
+  })
+}
+
+export const chooseFilter = (name) => {
+  return({
+    type: 'CHOOSE_FILTER',
+    name
+  })
+}
+
 
 export const addToCart = (product) => {
   return (dispatch, getState) => {
@@ -250,6 +267,23 @@ export const addNewUser = (userInfo) => {
     axios.post('http://localhost:4000/add-new-user', {userInfo})
       .then(res => {
         if(res.status === 200) console.log('user added');
+      })
+      .catch(err => console.log(err));
+  };
+};
+
+
+export const searchProducts = (searchValue, filters, category) => {//search for products in db using user input
+  return (dispatch) => {
+    console.log("Search for: ", searchValue, filters, category);
+    const search = {
+      filters: filters,
+      category: category.name,
+    }
+    console.log("Filters", JSON.stringify(search));
+    axios.defaults.withCredentials = true;
+    axios.post('http://localhost:4000/search', search).then(function (res) {
+        if (res.status === 200) dispatch(addProducts(res.data));
       })
       .catch(err => console.log(err));
   };

@@ -5,14 +5,15 @@ import Search from './Search';
 const mapStateToProps = state => {
   return ({
     filters: state.filters,
-    searchValue: state.searchValue
+    searchValue: state.searchValue,
+    category: state.categories[state.active_category] || ""
   });
 };
 
 const mapDispatchToProps = dispatch => {
   return({
     setSearchValue: (searchValue) => dispatch(setSearchValue(searchValue)),
-    searchProducts: (searchValue) => dispatch(searchProducts(searchValue))
+    searchProducts: (searchValue, filters, category) => dispatch(searchProducts(searchValue, filters, category))
   });
 };
 
