@@ -6,7 +6,8 @@ const Search = ({
 	filters,
 	setSearchValue,
 	searchProducts,
-	category
+	category,
+	active_filter
 }) => {
 	return (
 		<div className="search">
@@ -18,6 +19,7 @@ const Search = ({
 				defaultValue={searchValue}
 				onChange={(e) => setSearchValue(e.target.value)}
 				className="searchInput"
+				style={!active_filter ? {display:"block"} : {display:"none"}}
 			/>
 			<button 
 				onClick={() => searchProducts(searchValue, filters, category)}

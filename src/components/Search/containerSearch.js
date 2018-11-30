@@ -6,7 +6,8 @@ const mapStateToProps = state => {
   return ({
     filters: state.filters,
     searchValue: state.searchValue,
-    category: state.categories[state.active_category] || ""
+    category: state.categories[state.active_category] || "",
+    active_filter: state.active_filter
   });
 };
 
