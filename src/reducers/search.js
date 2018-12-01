@@ -5,7 +5,16 @@ const defaultState = {
   categories:[
     { 
       name: 'drawings',
-      filters:['materials']
+      filters:['materials', 'techniques', 'drawing_type']
+    },{
+      name: 'tapestry',
+      filters:['product_type', 'product_materials']
+    },{
+      name: 'pottery',
+      filters: []
+    },{
+      name: 'woodcraft',
+      filters: []
     }
   ],
   filters: [

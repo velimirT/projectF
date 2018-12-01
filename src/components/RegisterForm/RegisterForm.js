@@ -9,11 +9,12 @@ class RegisterForm extends React.Component {
     address: '',
     firstName: '',
     lastName: '',
+    message: 'User Successfully refistered!'
   }
 
-  componentDidMount() {
-    console.log('register mounted');
-  };
+  // componentDidMount() {
+  //   console.log('register mounted');
+  // };
 
   handleOnchange = (e) => {
     const entry = e.target.value;
@@ -41,7 +42,7 @@ class RegisterForm extends React.Component {
 
   render() {
 
-    const { username, password, email, address, firstName, lastName } = this.state;
+    const { username, password, email, address, firstName, lastName, message } = this.state;
     const { logged } = this.props;
 
     return (
@@ -106,7 +107,7 @@ class RegisterForm extends React.Component {
         </p>
         <button>Submit</button>
       </form> :
-      <p>User is already regestered</p>
+      <p>{message}</p>
       }
 
       </div>

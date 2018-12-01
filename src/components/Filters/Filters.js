@@ -13,7 +13,7 @@ const Filters = ({
 				{
 	                  filters.length ?
 	                    Object.keys(filters).map( i => {
-	                      let FilterComponent = filter_components[filters[i].name];
+												let FilterComponent = filter_components[filters[i].name];
 	                      if(FilterComponent){
 		                      return(
 	           	                   <FilterComponent key = {i} />

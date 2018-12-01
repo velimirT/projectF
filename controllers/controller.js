@@ -15,22 +15,32 @@ module.exports = {
 
   searchProducts: (search) => {
     return new Promise((resolve, reject) => {
-      
       const category = categories[search.category].filters;
       let sql_query = "SELECT * FROM "+search.category;
       let first_filter = true;
 
       for(let filter in categories[search.category].filters){
         let in_category = search.filters.filter((req_filter)=> req_filter.name == filter);
-        if(in_category.length > 0){
+        if(in_category.length > 0 && in_category[0].value !== null){
           sql_query += category[in_category[0].name](in_category[0].value, first_filter);
           first_filter = false;
         }
       }
       console.log("Final Query", sql_query);
 
-      const query = 'SELECT * FROM products ORDER BY id LIMIT 8;';
-      connection.query(query, (err, res) => {
+      // const query = 'SELECT * FROM products ORDER BY id LIMIT 8;';
+      connection.query(sql_query, (err, res) => {
+        if(err) reject(err);
+        resolve(res);
+      })
+    })
+  },
+
+  searchProductByTitle: (request) => {
+    return new Promise((resolve, reject) => { 
+      let sql_query = "SELECT * FROM products WHERE title LIKE '%"+request.search+"%'";
+      console.log(request.search);
+      connection.query(sql_query, (err, res) => {
         if(err) reject(err);
         resolve(res);
       })
@@ -39,7 +49,7 @@ module.exports = {
 
   getProduct: (id, category) => {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT * FROM ?? WHERE id = ?';
+      const query = 'SELECT * FROM ?? WHERE product_id = ?';
       connection.query(query, [category, id], (err, res) => {
         if(err) reject(err);
         resolve(res);
