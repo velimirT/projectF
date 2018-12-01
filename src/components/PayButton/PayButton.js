@@ -20,7 +20,7 @@ export default class PayButton extends React.Component {
 
 
 	componentDidMount(){
-		axios.get('http://localhost:4000/client_token').then(function(res){
+		axios.get('/client_token').then(function(res){
 			console.log("Response", res);
 			this.setState({token: res.data});
 			client.create({

@@ -140,7 +140,7 @@ export const getRandomProducts = () => {//get random products in the beginging
       }
     };
 
-    axios.get('http://localhost:4000/get-random-products')
+    axios.get('/get-random-products')
       .then(res => {
         if (res.status === 200) dispatch(addProducts(res.data));
       })
@@ -151,7 +151,7 @@ export const getRandomProducts = () => {//get random products in the beginging
 export const getProduct = (id, category) => {//get product from certain category
   return (dispatch) => {
     const values = JSON.stringify({ id, category });
-    axios.get(`http://localhost:4000/get-product?values=${values}`)
+    axios.get(`/get-product?values=${values}`)
       .then(res => {
         if (res.status === 200) {
           dispatch(addDetailedProduct(res.data[0]));
@@ -166,7 +166,7 @@ export const getProduct = (id, category) => {//get product from certain category
 export const handleLogin = (username, password) => {
   return (dispatch) => {
     axios.defaults.withCredentials = true;
-    axios.post('http://localhost:4000/login', {
+    axios.post('/login', {
       username: username,
       password: password,
     })
@@ -182,7 +182,7 @@ export const handleLogin = (username, password) => {
 
 export const handleLogout = () => {
   return (dispatch) => {
-    axios.post('http://localhost:4000/logout')
+    axios.post('/logout')
       .then(res => {
         if (res.status === 200) {
           console.log("Successfull loginout!", res.data);
@@ -195,7 +195,7 @@ export const handleLogout = () => {
 
 export const handleCheckout = (amount, payload_nonce, cart, user) => {
   return (dispatch) => {
-    axios.post('http://localhost:4000/checkout', { payment_method_nonce: payload_nonce, amount: amount, cart: JSON.stringify(cart), user: user }).then(function (res) {
+    axios.post('/checkout', { payment_method_nonce: payload_nonce, amount: amount, cart: JSON.stringify(cart), user: user }).then(function (res) {
       if (res.statusText === "OK") {
         console.log("Successfull Transaction!");
         dispatch(clearCart());
@@ -211,7 +211,7 @@ export const handleCheckout = (amount, payload_nonce, cart, user) => {
 export const getUserOrders = () => {
   return (dispatch) => {
     axios.defaults.withCredentials = true;
-    axios.get('http://localhost:4000/get-user-orders')
+    axios.get('/get-user-orders')
       .then(res => {
           if(res.status === 200){
             dispatch(addOrders(res.data));
@@ -239,7 +239,7 @@ export const getUserOrders = () => {
 export const getUserInfo = () => {
   return new Promise((resolve, reject) => {
     axios.defaults.withCredentials = true;
-    axios.get('http://localhost:4000/get-user-info')
+    axios.get('/get-user-info')
       .then(res => {
         if(res.status === 200){
           resolve(res.data[0]);
@@ -253,7 +253,7 @@ export const getUserInfo = () => {
 export const updateUserInfo = (userInfo) => {
   return (dispatch) => {
     axios.defaults.withCredentials = true;
-    axios.post('http://localhost:4000/update-user-info', {userInfo})
+    axios.post('/update-user-info', {userInfo})
       .then(res => {
         if(res.status === 200) console.log('updated');
       })
@@ -264,7 +264,7 @@ export const updateUserInfo = (userInfo) => {
 export const addNewUser = (userInfo) => {
   return (dispatch) => {
     axios.defaults.withCredentials = true;
-    axios.post('http://localhost:4000/add-new-user', {userInfo})
+    axios.post('/add-new-user', {userInfo})
       .then(res => {
         if(res.status === 200) {
           dispatch(handleLogin(userInfo.username, userInfo.password));
@@ -280,7 +280,7 @@ export const searchProducts = (searchValue, filters, category) => {//search for 
     console.log("Search for: ", searchValue, filters, category);
     if(!category){
         axios.defaults.withCredentials = true;
-        axios.post('http://localhost:4000/search-by-title', {search: searchValue}).then(function (res) {
+        axios.post('/search-by-title', {search: searchValue}).then(function (res) {
             if (res.status === 200) dispatch(addProducts(res.data));
           })
           .catch(err => console.log(err));
@@ -291,7 +291,7 @@ export const searchProducts = (searchValue, filters, category) => {//search for 
         }
         console.log("Filters", JSON.stringify(search));
         axios.defaults.withCredentials = true;
-        axios.post('http://localhost:4000/search', search).then(function (res) {
+        axios.post('/search', search).then(function (res) {
             if (res.status === 200) dispatch(addProducts(res.data));
           })
           .catch(err => console.log(err));
