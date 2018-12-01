@@ -3,7 +3,8 @@ import './product-item.css';
 
 const ProductItem = ({ values, getProduct }) => {
 
-  const { img, title, category, price, id } = values;
+  let { img, title, category, price, id } = values;
+  id = values.product_id || id;
   const style = { backgroundImage: `url(${img})`};
 
   return (
