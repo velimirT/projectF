@@ -10,7 +10,7 @@ const Search = ({
 	active_filter
 }) => {
 	return (
-		<div class = "search_wrapper">
+		<div className = "search_wrapper">
 			<div className="search">
 				<h1>Search</h1>
 				<Filters filters={filters} />
