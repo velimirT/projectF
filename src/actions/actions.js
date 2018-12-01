@@ -278,15 +278,23 @@ export const addNewUser = (userInfo) => {
 export const searchProducts = (searchValue, filters, category) => {//search for products in db using user input
   return (dispatch) => {
     console.log("Search for: ", searchValue, filters, category);
-    const search = {
-      filters: filters,
-      category: category.name,
+    if(!category){
+        axios.defaults.withCredentials = true;
+        axios.post('http://localhost:4000/search-by-title', {search: searchValue}).then(function (res) {
+            if (res.status === 200) dispatch(addProducts(res.data));
+          })
+          .catch(err => console.log(err));
+    }else{
+        const search = {
+          filters: filters,
+          category: category.name,
+        }
+        console.log("Filters", JSON.stringify(search));
+        axios.defaults.withCredentials = true;
+        axios.post('http://localhost:4000/search', search).then(function (res) {
+            if (res.status === 200) dispatch(addProducts(res.data));
+          })
+          .catch(err => console.log(err));
     }
-    console.log("Filters", JSON.stringify(search));
-    axios.defaults.withCredentials = true;
-    axios.post('http://localhost:4000/search', search).then(function (res) {
-        if (res.status === 200) dispatch(addProducts(res.data));
-      })
-      .catch(err => console.log(err));
-  };
+  }; 
 };

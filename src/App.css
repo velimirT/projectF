@@ -8,6 +8,16 @@
   height: 40vmin;
 }
 
+header{
+  background: url("./images/header.png") center no-repeat;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

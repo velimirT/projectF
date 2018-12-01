@@ -21,4 +21,10 @@ module.exports = app => {
       .catch(err => console.log(err));
   })
 
+  app.post('/search-by-title', (req, res) => {
+    controller.searchProductByTitle(req.body)
+      .then(result => res.json(result))
+      .catch(err => console.log(err));
+  })
+
 }
