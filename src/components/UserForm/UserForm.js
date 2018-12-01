@@ -1,5 +1,6 @@
 import React from 'react';
 import { getUserInfo } from '../../actions/actions';
+import './user-form.css';
 
 class UserForm extends React.Component {
 
@@ -14,8 +15,8 @@ class UserForm extends React.Component {
 
   componentDidMount() {
     getUserInfo()
-      .then(res =>{
-        const { username, email, address, last_name:lastName, first_name: firstName } = res;
+      .then(res => {
+        const { username, email, address, last_name: lastName, first_name: firstName } = res;
         this.setState(() => ({ username, email, address, lastName, firstName }));
       })
       .catch(err => console.log(err));
@@ -48,19 +49,23 @@ class UserForm extends React.Component {
 
     return (
       <main>
-        <form onSubmit={this.handleOnSubmit}>
+        <form onSubmit={this.handleOnSubmit} className="user-form">
           <legend>Edit form</legend>
-          <p>
-            <label htmlFor="username">Nick name</label>
+          <div>
+            <p>
+              <label htmlFor="username">Nick name</label>
+            </p>
             <input
               id="username"
               onChange={this.handleOnchange}
               value={username}
               placeholder="art_maniac"
             />
-          </p>
-          <p>
-            <label htmlFor="password">Password</label>
+          </div>
+          <div>
+            <p>
+              <label htmlFor="password">Password</label>
+            </p>
             <input
               id="password"
               onChange={this.handleOnchange}
@@ -68,43 +73,51 @@ class UserForm extends React.Component {
               placeholder="greenTable20"
               disabled={true}
             />
-          </p>
-          <p>
-            <label htmlFor="email">Email</label>
+          </div>
+          <div>
+            <p>
+              <label htmlFor="email">Email</label>
+            </p>
             <input
               id="email"
               onChange={this.handleOnchange}
               value={email}
               placeholder="cool_user@gmail.com"
             />
-          </p>
-          <p>
-            <label htmlFor="address">Address</label>
+          </div>
+          <div>
+            <p>
+              <label htmlFor="address">Address</label>
+            </p>
             <input
               id="address"
               onChange={this.handleOnchange}
               value={address}
               placeholder="3860 Ruby St"
             />
-          </p>
-          <p>
-            <label htmlFor="first-name">First name</label>
+          </div>
+          <div>
+            <p>
+              <label htmlFor="first-name">First name</label>
+            </p>
             <input
               id="firstName"
               onChange={this.handleOnchange}
               value={firstName}
               placeholder="Nick"
             />
-          </p>
-          <p>
-            <label htmlFor="last-name">Last name</label>
+          </div>
+          <div>
+            <p>
+              <label htmlFor="last-name">Last name</label>
+            </p>
             <input
               id="lastName"
               onChange={this.handleOnchange}
               value={lastName}
               placeholder="Norton"
             />
-          </p>
+          </div>
           <button>Submit</button>
         </form>
       </main>

@@ -15,7 +15,7 @@ header{
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 30;
 }
 
 header nav{
@@ -65,6 +65,7 @@ header nav .cart_quantity{
 main{
   position: relative;
   margin-top: 100px;
+  width: 100%; 
 }
 
 header .login_btn a{

@@ -1,0 +1,16 @@
+.register-form {
+  margin: 100px auto 0 auto;
+  width: 80%;
+  text-align: center;
+}
+
+.register-form p {
+  margin: 0;
+  padding: 0;
+}
+
+.register-form input{
+border: 1px solid #333;
+border-radius: 5px;
+padding: 5px;
+}

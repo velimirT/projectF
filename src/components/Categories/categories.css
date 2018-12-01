@@ -1,8 +1,10 @@
 .categories {
   border: 1px solid black;
+  box-shadow: 1px 1px 2px #000;
+  border-radius: 5px;
   display: flex;
   list-style-type: none;
-  padding: 0;
+  padding: 5px;
   margin: 2%;
   width: 96%;
   justify-content: space-between;

@@ -1,0 +1,16 @@
+.user-form{
+  margin: 100px auto 0 auto;
+  width: 80%;
+  text-align: center;
+}
+
+.user-form p{
+  margin: 0;
+  padding: 0;
+}
+
+.user-form input{
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 5px;
+}

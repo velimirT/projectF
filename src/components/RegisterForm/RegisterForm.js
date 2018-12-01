@@ -1,4 +1,5 @@
 import React from 'react';
+import './registerForm.css';
 
 class RegisterForm extends React.Component {
 
@@ -47,68 +48,81 @@ class RegisterForm extends React.Component {
 
     return (
       <main>
-      {
-        !logged ?
-        <form onSubmit={this.handleOnSubmit}>
-        <legend>Edit form</legend>
-        <p>
-          <label htmlFor="username">Nick name</label>
-          <input
-            id="username"
-            onChange={this.handleOnchange}
-            value={username}
-            placeholder="art_maniac"
-          />
-        </p>
-        <p>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            onChange={this.handleOnchange}
-            value={password}
-            placeholder="greenTable20"
-          />
-        </p>
-        <p>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            onChange={this.handleOnchange}
-            value={email}
-            placeholder="cool_user@gmail.com"
-          />
-        </p>
-        <p>
-          <label htmlFor="address">Address</label>
-          <input
-            id="address"
-            onChange={this.handleOnchange}
-            value={address}
-            placeholder="3860 Ruby St"
-          />
-        </p>
-        <p>
-          <label htmlFor="first-name">First name</label>
-          <input
-            id="firstName"
-            onChange={this.handleOnchange}
-            value={firstName}
-            placeholder="Nick"
-          />
-        </p>
-        <p>
-          <label htmlFor="last-name">Last name</label>
-          <input
-            id="lastName"
-            onChange={this.handleOnchange}
-            value={lastName}
-            placeholder="Norton"
-          />
-        </p>
-        <button>Submit</button>
-      </form> :
-      <p>{message}</p>
-      }
+        {
+          !logged ?
+            <form onSubmit={this.handleOnSubmit} className="register-form">
+              <legend>Edit form</legend>
+              <div>
+                <p>
+                  <label htmlFor="username">Nick name</label>
+                </p>
+                <input
+                  id="username"
+                  onChange={this.handleOnchange}
+                  value={username}
+                  placeholder="art_maniac"
+                />
+              </div>
+              <div>
+                <p>
+                  <label htmlFor="password">Password</label>
+                </p>
+                <input
+                  id="password"
+                  onChange={this.handleOnchange}
+                  value={password}
+                  placeholder="greenTable20"
+                  type="password"
+                />
+              </div>
+              <div>
+                <p>
+                  <label htmlFor="email">Email</label>
+                </p>
+                <input
+                  id="email"
+                  onChange={this.handleOnchange}
+                  value={email}
+                  placeholder="cool_user@gmail.com"
+                />
+              </div>
+              <div>
+                <p>
+                  <label htmlFor="address">Address</label>
+                </p>
+                <input
+                  id="address"
+                  onChange={this.handleOnchange}
+                  value={address}
+                  placeholder="3860 Ruby St"
+                />
+              </div>
+              <div>
+                <p>
+                  <label htmlFor="first-name">First name</label>
+                </p>
+                <input
+                  id="firstName"
+                  onChange={this.handleOnchange}
+                  value={firstName}
+                  placeholder="Nick"
+                />
+              </div>
+              <div>
+                <p>
+                  <label htmlFor="last-name">Last name</label>
+                </p>
+                <input
+                  id="lastName"
+                  onChange={this.handleOnchange}
+                  value={lastName}
+                  placeholder="Norton"
+                />
+              </div>
+              <button>Submit</button>
+            </form> :
+            <p>{message}</p>
+        }
 
       </main>
     )
