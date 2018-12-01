@@ -76,8 +76,15 @@ header .login_btn a{
   margin-right: 5px; 
 }
 
+.search_wrapper{
+  text-align: center;
+}
+
 .search{
   position: relative;
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .filters span{
