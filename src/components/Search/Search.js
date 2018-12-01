@@ -19,7 +19,7 @@ const Search = ({
 				defaultValue={searchValue}
 				onChange={(e) => setSearchValue(e.target.value)}
 				className="searchInput"
-				style={!active_filter ? {display:"block"} : {display:"none"}}
+				style={!active_filter ? {opacity:"1"} : {opacity:"0"}}
 			/>
 			<button 
 				onClick={() => searchProducts(searchValue, filters, category)}

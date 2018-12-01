@@ -47,7 +47,7 @@ class UserForm extends React.Component {
     const { username, password, email, address, firstName, lastName } = this.state;
 
     return (
-      <div>
+      <main>
         <form onSubmit={this.handleOnSubmit}>
           <legend>Edit form</legend>
           <p>
@@ -107,7 +107,7 @@ class UserForm extends React.Component {
           </p>
           <button>Submit</button>
         </form>
-      </div>
+      </main>
     )
   }
 };

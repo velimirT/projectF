@@ -3,9 +3,9 @@ import UserForm from '../UserForm/containerUserForm';
 
 const Profile = ({ logged }) => {
   return (
-    <div>
+    <main>
       {logged ? <UserForm /> : <p>Log in to see edit form</p>}
-    </div>
+    </main>
   )
 };
 

@@ -1,12 +1,17 @@
 import React from 'react';
-
+import CartIcon from '../../../images/cart.png';
 const Search = ({
 	cart
 }) => {
 	return (
-		<div className="cart_button">
-			<p>Items: {cart.length}</p>
-		</div>
+		<>
+			<span><img src={CartIcon} alt = "Cart"/></span>
+			{cart.length > 0 &&
+			<span className="cart_quantity">
+				{cart.length}
+			</span>
+			}
+		</>
 	)
 };
 

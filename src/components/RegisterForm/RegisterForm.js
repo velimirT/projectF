@@ -46,7 +46,7 @@ class RegisterForm extends React.Component {
     const { logged } = this.props;
 
     return (
-      <div>
+      <main>
       {
         !logged ?
         <form onSubmit={this.handleOnSubmit}>
@@ -110,7 +110,7 @@ class RegisterForm extends React.Component {
       <p>{message}</p>
       }
 
-      </div>
+      </main>
     )
   }
 };

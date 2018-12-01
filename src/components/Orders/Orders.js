@@ -19,7 +19,7 @@ class Orders extends React.Component {
     const amount = orders && orders.reduce((acc, item) => acc + (item.amount * item.qty), 0).toFixed(2);
 
     return (
-      <div>
+      <main>
         {
           logged ? 
           orders.length > 0 ?
@@ -32,7 +32,7 @@ class Orders extends React.Component {
             : <p>No orders yet</p> :
             <p>Log in to see orders</p>
         }
-      </div>
+      </main>
     )
   }
 };
